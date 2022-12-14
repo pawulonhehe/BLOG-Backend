@@ -44,10 +44,8 @@ router.post("/register", validateUser, (req, res) => {
   connection.query(
     "INSERT INTO users (email,name,password) VALUES (?,?,?)",
     [req.body.email, req.body.name, req.body.password],
-    (err, result) => {
-      if (err) {
-        res.json({ status: "error", content: err });
-      }
+    function(err, result){
+      if (err) return res.json({ status: "error", content: err });
     }
   );
   res.json({ status: "ok", content: "Zarejestrowano" });
