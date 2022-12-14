@@ -36,11 +36,8 @@ function validateUser(req, res, next){
         connection.query(
             'SELECT email FROM users WHERE email = ?',
             [req.body.email], (err, results) => {
-                if(results.length == 0){
-                    next()
-                }else{
-                    res.json({status:"error", content: "Email is already in use!"})
-                }
+                if(results.length == 0) next()
+                res.json({status:"error", content: "Email is already in use!"})
             }
         )
     }    

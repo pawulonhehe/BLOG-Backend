@@ -18,4 +18,16 @@ function verifyUser(req, res, next){
     })
 }
 
-module.exports = verifyUser;
+function checkModPermissions(req, res, next){
+    if(req.user == null) return res.json({status: "error", content: "User not logged in"})
+
+    if (req.user.ismod == true){
+        next()
+    }
+    else{
+        return res.json({status: "error", content: "Insufficient permissions"})    
+    }
+
+}
+
+module.exports = {verifyUser, checkModPermissions};
