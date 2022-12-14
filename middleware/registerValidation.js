@@ -30,7 +30,7 @@ function validateUser(req, res, next){
     const validation = userSchema.validate(dummy)
 
     if(validation.error){
-        res.json(validation)
+        res.json({status: "error", content: validation.error.details[0].message})
     }
     else{
         connection.query(

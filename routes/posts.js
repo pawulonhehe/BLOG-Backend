@@ -1,16 +1,17 @@
 const express = require('express')
 const router = express.Router()
 const connection = require("../db.js")
+const bodyparser = require("body-parser");
 
-const verifyUser = require("../middleware/verifyToken.js")
+router.use(express.json());
+router.use(bodyparser.urlencoded({ extended: false }));
 
 
-router.use((req, res, next) => {
-    next()
-})
+const verifyToken = require("../middleware/verifyToken.js")
+
 
 router.get("/", (req, res) =>{
-    res.status(403).json({status:"Forbidden"})
+    res.json({status:"ok"})
 })
 
 router.get('/:id', (req, res) => {
@@ -23,15 +24,30 @@ router.get('/:id', (req, res) => {
     )
 })
 
-router.post('/addPost', verifyUser , (req, res) => {
+router.post('/addPost', verifyToken , (req, res) => {
     connection.query(
-        'INSERT INTO posts (author_fk, time_date, category_fk, title, content) VALUES (?,?,?,?,?)',
-        [1, Date.now(), 1, "Testowy post", "XD"],
+        'INSERT INTO posts (author_fk, category_fk, title, content) VALUES (?,?,?,?)',
+        [req.user.id, req.body.category, req.body.title, req.body.content],
         function(err, results){
             if(err){
-                res.json({status:"error", content: err})
+                res.json({status:"error", content: err.sqlMessage})
+                return
             }
             res.json({status: "ok", content: "Dodano post"})
+        }
+    )
+})
+
+router.delete('/deletePost', verifyToken, (req, res) => {
+    connection.query(
+        'DELETE FROM posts WHERE id = ?',
+        [req.body.id],
+        function(err, results){
+            if(err) {
+                res.json({status:"error", content: err})
+                return
+            }
+            res.json({status:"ok", content: "Usunięto post"})
         }
     )
 })
