@@ -52,7 +52,7 @@
 | :-------- | :------- | :-------------------------------- |
 | `Header['Authorization']`      | `Bearer` | **Wymagany** |
 | `author_id`      | `int` | **Wymagany** |
-| `category_id`      | `Bearer` | Opcjonalny  |
+| `category_id`      | `int` | Opcjonalny  |
 | `title`      | `string` | **Wymagany**  |
 | `content`      | `string` | **Wymagany**  |
 
