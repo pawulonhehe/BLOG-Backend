@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 13 Gru 2022, 01:20
+-- Czas generowania: 14 Gru 2022, 05:51
 -- Wersja serwera: 10.4.24-MariaDB
 -- Wersja PHP: 7.4.29
 
@@ -49,7 +49,7 @@ CREATE TABLE `posts` (
   `id` int(11) NOT NULL,
   `author_fk` int(11) NOT NULL,
   `time_date` datetime NOT NULL DEFAULT current_timestamp(),
-  `category_fk` int(11) NOT NULL,
+  `category_fk` int(11) DEFAULT 1,
   `title` varchar(128) NOT NULL,
   `content` varchar(4096) NOT NULL,
   `likes` varchar(10000) NOT NULL DEFAULT '0'
@@ -69,13 +69,6 @@ CREATE TABLE `users` (
   `user_category` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT '[]' CHECK (json_valid(`user_category`)),
   `ismod` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Zrzut danych tabeli `users`
---
-
-INSERT INTO `users` (`id`, `email`, `name`, `password`, `user_category`, `ismod`) VALUES
-(4, '123@mati.pl', 'mateusz', 'mateusz', '[]', 0);
 
 --
 -- Indeksy dla zrzutów tabel
@@ -115,13 +108,13 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT dla tabeli `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT dla tabeli `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Ograniczenia dla zrzutów tabel
