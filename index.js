@@ -5,7 +5,7 @@ const cors = require("cors");
 const app = express();
 app.use(cors({ origin: "http://localhost:3000" }));
 
-
+// cyce
 //Routes
 const posts = require("./routes/posts.js");
 app.use("/posts", posts);
