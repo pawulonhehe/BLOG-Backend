@@ -27,10 +27,18 @@ router.get('/:id', (req, res) => {
 router.post('/addPost', verifyUser , (req, res) => {
 
 
+    //Post może mieć brak kategorii ale nie musi
+    let newPost = {
+        author_fk: req.user.id,
+        category_fk: req.body.category,
+        title: req.body.title,
+        content: req.body.content
+    }
+
 
     connection.query(
         'INSERT INTO posts (author_fk, category_fk, title, content) VALUES (?,?,?,?)',
-        [req.user.id, req.body.category, req.body.title, req.body.content],
+        [newPost],
         function(err, results){
             console.log(results)
             if(err) return res.json({status:"error", content: err.sqlMessage})
@@ -52,7 +60,6 @@ router.delete('/deletePost', verifyUser, checkModPermissions, (req, res) => {
 })
 
 router.patch('/editPost', verifyUser, checkModPermissions, (req, res) => {
-
 
     //Dopuszczaj modyfikacje tylko tych wartości
     let info = {
