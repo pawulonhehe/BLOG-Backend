@@ -28,10 +28,10 @@ router.post("/login", (req, res) => {
           ismod: results[0].ismod,
         };
 
-        let token = jwt.sign(user, process.env.TOKEN);
+        let token = jwt.sign(user, process.env.TOKEN, { expiresIn: "1h" });
         res.json({ status: "ok", content: token });
       } else {
-        res.json({
+        res.status(404).json({
           status: "error",
           content: "User with provided credentials has not been found",
         });
@@ -44,8 +44,8 @@ router.post("/register", validateUser, (req, res) => {
   connection.query(
     "INSERT INTO users (email,name,password) VALUES (?,?,?)",
     [req.body.email, req.body.name, req.body.password],
-    function(err, result){
-      if (err) return res.json({ status: "error", content: err });
+    function (err, result) {
+      if (err) return res.status(404).json({ status: "error", content: err });
     }
   );
   res.json({ status: "ok", content: "Zarejestrowano" });
