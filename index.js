@@ -16,6 +16,9 @@ app.use("/users", users);
 const auth = require("./routes/auth.js");
 app.use("/auth", auth);
 
+const tags = require("./routes/tags.js");
+app.use("/tags", tags);
+
 app.get("/", (req, res) => {
   res.json({ status: "ok" });
 });
