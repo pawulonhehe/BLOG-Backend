@@ -37,7 +37,7 @@ router.post("/addPost", verifyUser, (req, res) => {
   //Post może mieć brak kategorii ale nie musi
   connection.query(
     "INSERT INTO posts (author_fk, category_fk, title, content) VALUES (?,?,?,?)",
-    [req.user.id, req.body.category, req.body.title, req.body.content],
+    [req.user.id, req.body.category_fk, req.body.title, req.body.content],
     function (err, results) {
       console.log(results);
       if (err) return res.json({ status: "error", content: err.sqlMessage });
