@@ -1,19 +1,23 @@
-const express = require('express')
-const router = express.Router()
-const connection = require("../db.js")
+const express = require("express");
+const router = express.Router();
+const connection = require("../db.js");
 
-router.get("/", (req, res) =>{
-    res.json({status:"ok"})
-})
+router.get("/", (req, res) => {
+  connection.query("SELECT name FROM users", (err, results) => {
+    // wczesniej byly wszystkie dane usera, teraz tylko nick
+    if (err) return res.status(404).json({ status: "error", content: err });\
+    res.json(results);
+  });
+});
 
-router.get('/:id', (req, res) => {
-    connection.query(
-        'SELECT name FROM `users` WHERE id = ?',
-        [req.params.id],
-        function(err, results) {
-            res.json(results)
-        }
-    )
-})
+router.get("/:id", (req, res) => {
+  connection.query(
+    "SELECT name FROM `users` WHERE id = ?",
+    [req.params.id],
+    function (err, results) {
+      res.json(results);
+    }
+  );
+});
 
-module.exports = router
+module.exports = router;

@@ -3,9 +3,8 @@ const connection = require("./db.js");
 const cors = require("cors");
 
 const app = express();
-app.use(cors({ origin: "http://localhost:3000" }));
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 
-// cyce
 //Routes
 const posts = require("./routes/posts.js");
 app.use("/posts", posts);

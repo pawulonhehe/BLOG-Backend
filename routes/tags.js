@@ -24,4 +24,16 @@ router.post("/addTag", (req, res) => {
   );
 });
 
+router.delete("/deleteTag/:id", (req, res) => {
+  connection.query(
+    "DELETE FROM category WHERE id = ?",
+    [req.params.id],
+    (err, results) => {
+      if (err) return res.status(404).json({ status: "error", content: err });
+      res.json({ status: "ok", content: results });
+    }
+  );
+});
+
+
 module.exports = router;
