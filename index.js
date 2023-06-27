@@ -23,5 +23,5 @@ app.get("/", (req, res) => {
 });
 
 app.listen(1234, () => {
-  console.log("serwer dziala XD");
+  console.log("server is working");
 });
