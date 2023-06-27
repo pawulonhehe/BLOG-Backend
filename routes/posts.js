@@ -75,7 +75,6 @@ router.patch("/editPost", verifyUser, checkModPermissions, (req, res) => {
     content: req.body.content,
   };
   //lub cokolwiek w query req.body
-
   connection.query(
     "UPDATE `posts` SET ? WHERE id = ?",
     [req.body, req.body.id],
@@ -89,6 +88,21 @@ router.patch("/editPost", verifyUser, checkModPermissions, (req, res) => {
       res.json({
         status: "ok",
         content: `Post with id(${req.body.id}) got edited`,
+      });
+    }
+  );
+});
+
+router.post("/likePost/:id", verifyUser, (req, res) => {
+  const postId = req.params.id;
+  connection.query(
+    "UPDATE posts SET likes = likes + 1 WHERE id = ?",
+    [postId],
+    function (err, results) {
+      if (err) return res.json({ status: "error", content: err.sqlMessage });
+      res.json({
+        status: "ok",
+        content: `Post with id(${postId}) got liked`,
       });
     }
   );
