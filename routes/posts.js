@@ -93,6 +93,7 @@ router.patch("/editPost", verifyUser, checkModPermissions, (req, res) => {
   );
 });
 
+// version without checking if user has already liked the post
 router.post("/likePost/:id", verifyUser, (req, res) => {
   const postId = req.params.id;
   connection.query(
@@ -107,5 +108,7 @@ router.post("/likePost/:id", verifyUser, (req, res) => {
     }
   );
 });
+
+// need version with checking if user has already liked the post
 
 module.exports = router;
