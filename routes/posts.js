@@ -11,9 +11,10 @@ const {
   checkModPermissions,
 } = require("../middleware/verifyToken.js");
 
+// get all posts sorted by date
 router.get("/", (req, res) => {
   connection.query(
-    "SELECT posts.id, posts.title, posts.content, posts.likes, posts.time_date,category.name AS category_name, users.name  FROM posts INNER JOIN category ON posts.category_fk = category.id INNER JOIN users ON posts.author_fk = users.id",
+    "SELECT posts.id, posts.title, posts.content, posts.likes, posts.time_date,category.name AS category_name, users.name FROM posts INNER JOIN category ON posts.category_fk = category.id INNER JOIN users ON posts.author_fk = users.id ORDER BY posts.time_date DESC",
     function (err, results) {
       if (err) {
         res.json({ status: "error", content: err.sqlMessage });
