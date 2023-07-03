@@ -4,7 +4,6 @@ const connection = require("../db.js");
 
 router.get("/", (req, res) => {
   connection.query("SELECT name FROM users", (err, results) => {
-    // wczesniej byly wszystkie dane usera, teraz tylko nick
     if (err) return res.status(404).json({ status: "error", content: err });
     res.json(results);
   });

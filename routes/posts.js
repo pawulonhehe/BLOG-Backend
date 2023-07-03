@@ -35,7 +35,7 @@ router.get("/:id", (req, res) => {
 });
 
 router.post("/addPost", verifyUser, (req, res) => {
-  //Post może mieć brak kategorii ale nie musi
+  //Post can have a category, but it's not required
   connection.query(
     "INSERT INTO posts (author_fk, category_fk, title, content) VALUES (?,?,?,?)",
     [req.user.id, req.body.category_fk, req.body.title, req.body.content],
@@ -70,12 +70,12 @@ router.delete("/deletePost", verifyUser, checkModPermissions, (req, res) => {
 });
 
 router.patch("/editPost", verifyUser, checkModPermissions, (req, res) => {
-  //Dopuszczaj modyfikacje tylko tych wartości
+  //allow editing only these two fields
   let info = {
     title: req.body.title,
     content: req.body.content,
   };
-  //lub cokolwiek w query req.body
+  //or anything in query req.body
   connection.query(
     "UPDATE `posts` SET ? WHERE id = ?",
     [req.body, req.body.id],

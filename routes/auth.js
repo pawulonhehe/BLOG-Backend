@@ -48,7 +48,7 @@ router.post("/register", validateUser, (req, res) => {
       if (err) return res.status(404).json({ status: "error", content: err });
     }
   );
-  res.json({ status: "ok", content: "Zarejestrowano" });
+  res.json({ status: "ok", content: "Succesfully registered" });
 });
 
 module.exports = router;
